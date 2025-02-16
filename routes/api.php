@@ -34,7 +34,6 @@ Route::get('session/{id}', [SessionsController::class, 'getSession']);
 
 Route::get('rencontre/{id}', [RencontresController::class, 'getRencontre']);
 Route::get('rencontres', [RencontresController::class, 'listRencontres']);
-Route::get('/RencontreParticipants', [RencontresController::class, 'getRencontreParticipants']);
 
 //recuperer la liste de depenses
 Route::get('/depenses', [DepensesController::class, 'listDepenses']);
@@ -45,10 +44,11 @@ Route::get('/depenses', [DepensesController::class, 'listDepenses']);
 //Route::get('/session/{id}/membres', [MembreSessionsController::class, 'getSessionMembers']);
 
 Route::get('/sessionMembres', [MembreSessionsController::class, 'getSessionMembers']);
-Route::get('/sessionRencontres', [RencontresController::class, 'getSessionRencontres']);
+Route::get('/sessionRencontres', [MembreSessionsController::class, 'getSessionRencontres']);
 Route::get('/sessionAides', [MembreSessionsController::class, 'getSessionAides']);
-Route::get('/sessionPrets', [PretsController::class, 'getSessionPrets']);
+Route::get('/sessionPrets', [MembreSessionsController::class, 'getSessionPrets']);
 Route::get('/sessionDepenses', [MembreSessionsController::class, 'getSessionRencontreDep']);
+Route::get('/RencontreParticipants', [MembreSessionsController::class, 'getRencontreParticipants']);
 
 //recuperer la liste de Aides
 Route::get('/aides', [AidesController::class, 'listAides']);

@@ -43,17 +43,26 @@ public function getSessionMembers()
     return response()->json($members);
 }
 
-public function getSessionAides()
+public function getSessionRencontres()
 {
-    $members = DB::table('Membres_sessions')
-        ->join('Aides', 'Membres_sessions.id_membre_session', '=', 'Aides.id_membre_session')
+    $rencontres = DB::table('Membres_sessions')
+        ->join('Rencontres', 'Membres_sessions.id_membre_session', '=', 'Rencontres.id_membre_session')
         ->join('Membres', 'Membres_sessions.id_membre', '=', 'Membres.id_membre')
-        ->join('Aide_type', 'Aides.id_type_aide', '=', 'Aide_type.id_type_aide')
-        ->join('Aide_montant', 'Aides.id_type_aide', '=', 'Aide_montant.id_type_aide')
-        ->select('Membres_sessions.id_session','Membres_sessions.id_membre', 'Membres.nom', 'Membres.prenom','Aides.id_aide', 'Aides.date_versement', 'Aides.commentaire', 'Aides.date_ouverture_aide', 'Aide_type.type_aide', 'Aide_montant.montant')
-        ->distinct()->orderBy('Aides.date_ouverture_aide', 'desc')->get();
+        ->select('Membres_sessions.id_session','Rencontres.id_rencontre', 'Membres_sessions.id_membre', 'Membres.nom', 'Membres.prenom', 'Rencontres.date_rencontre', 'Rencontres.commentaire', 'Rencontres.lieu')
+        ->get();
 
-    return response()->json($members);
+    return response()->json($rencontres);
+}
+
+public function getRencontreParticipants()
+{
+    $participants = DB::table('Assiste')
+        ->join('Rencontres', 'Assiste.id_rencontre', '=', 'Rencontres.id_rencontre')
+        ->join('Membres', 'Assiste.id_membre', '=', 'Membres.id_membre')
+        ->select('Assiste.id_membre', 'Membres.nom', 'Membres.prenom', 'Rencontres.date_rencontre', 'Assiste.id_rencontre', 'Rencontres.commentaire', 'Rencontres.lieu')
+        ->get();
+
+    return response()->json($participants);
 }
 
 public function getSessionRencontreDep()
@@ -68,6 +77,28 @@ public function getSessionRencontreDep()
     return response()->json($members);
 }
 
+public function getSessionAides()
+{
+    $members = DB::table('Membres_sessions')
+        ->join('Aides', 'Membres_sessions.id_membre_session', '=', 'Aides.id_membre_session')
+        ->join('Membres', 'Membres_sessions.id_membre', '=', 'Membres.id_membre')
+        ->join('Aide_type', 'Aides.id_type_aide', '=', 'Aide_type.id_type_aide')
+        ->join('Aide_montant', 'Aides.id_type_aide', '=', 'Aide_montant.id_type_aide')
+        ->select('Membres_sessions.id_session','Membres_sessions.id_membre', 'Membres.nom', 'Membres.prenom','Aides.id_aide', 'Aides.date_versement', 'Aides.commentaire', 'Aides.date_ouverture_aide', 'Aide_type.type_aide', 'Aide_montant.montant')
+        ->distinct()->orderBy('Aides.date_ouverture_aide', 'desc')->get();
 
+    return response()->json($members);
+}
+
+public function getSessionPrets()
+{
+    $prets = DB::table('Membres_sessions')
+    ->join('Prets', 'Membres_sessions.id_membre_session', '=', 'Prets.id_membre_session')
+    ->join('Membres', 'Membres_sessions.id_membre', '=', 'Membres.id_membre')
+    ->select('Membres_sessions.id_session','Membres_sessions.id_membre', 'Membres.nom', 'Membres.prenom', 'Prets.montant', 'Prets.interet_generer', 'Prets.date_remboursement', 'Prets.date_pret', 'Prets.duree')
+    ->distinct()->orderBy('Prets.date_pret', 'desc')->get();
+
+    return response()->json($prets);
+}
 
 }
