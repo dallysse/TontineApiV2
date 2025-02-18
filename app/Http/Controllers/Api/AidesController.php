@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\AidePrevus;
+use App\Models\Aide;
 
 
 class AidesController extends Controller

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\PretsController;
 use App\Http\Controllers\Api\TypeAidesController;
 use App\Http\Controllers\Api\AidesController;
 use App\Http\Controllers\Api\RencontresController;
+use App\Http\Controllers\Api\AmandesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::get('rencontres', [RencontresController::class, 'listRencontres']);
 
 //recuperer la liste de depenses
 Route::get('/depenses', [DepensesController::class, 'listDepenses']);
+
+//recuperer la liste de amandes
+Route::get('/amandes', [AmandesController::class, 'listAmandesMembreSess']);
 
 //recuperer la liste membres de session
 //Route::get('/sessionMembres', [MembreSessionsController::class, 'listMembreSessions']);

@@ -38,7 +38,7 @@ public function getSessionMembers()
     $members = DB::table('Membres_sessions')
         ->join('Membres', 'Membres_sessions.id_membre', '=', 'Membres.id_membre')
         ->select('Membres_sessions.id_session','Membres.id_membre', 'Membres.nom', 'Membres.prenom', 'Membres.date_naissance', 'Membres_sessions.mois_encaissement', 'Membres_sessions.actif')
-        ->get();
+        ->orderBy('Membres_sessions.mois_encaissement')->get();
 
     return response()->json($members);
 }
